@@ -14,11 +14,12 @@ function MainPage(props: {
   const [pomodoro, setPomodoro] = useState(25);
   const [shortBrake, setShortBrake] = useState(5);
   const [longBrake, setLongBrake] = useState(15);
+  const [apply, setApply] = useState(false);
 
   return (
     <div className="pt-[2rem] pb-[3rem] flex flex-col items-center">
       <img className="mb-[2.8rem]" src={Logo} alt="Logo" />
-      <div className="flex justify-between bg-[#161932] mb-[3rem] rounded-full p-[0.5rem]">
+      <div className="flex justify-between bg-commonColor mb-[3rem] rounded-full p-[0.5rem] z-10">
         <button
           onClick={() => {
             setOption("pomodoro");
@@ -29,17 +30,15 @@ function MainPage(props: {
               font === "sans" && "font-sans",
               font === "serif" && "font-serif",
               font === "mono" && "font-mono",
-              option === "pomodoro" &&
-                color === "red" &&
-                "bg-[#F87070] text-[#1E213F]",
+              option === "pomodoro" && color === "red" && "bg-commonColor4",
               option === "pomodoro" &&
                 color === "lightblue" &&
-                "bg-[#70F3F8] text-[#1E213F]",
-              option === "pomodoro" &&
-                color === "purple" &&
-                "bg-[#D881F8] text-[#1E213F]",
-
-              "text-[0.8rem] leading-[0.9rem] font-[700] text-[#D7E0FF] p-[1.2rem] rounded-full"
+                "bg-commonColor5",
+              option === "pomodoro" && color === "purple" && "bg-commonColor6",
+              option === "pomodoro"
+                ? "text-commonColor3"
+                : "text-commonColor7 opacity-[40%] hover:opacity-100",
+              "md:text-[0.9rem] md:py-[1.3rem] md:px-[1.5rem] text-[0.8rem] leading-[0.9rem] font-[700] p-[1.2rem] rounded-full transition-all duration-100"
             )}
           >
             pomodoro
@@ -55,16 +54,17 @@ function MainPage(props: {
               font === "sans" && "font-sans",
               font === "serif" && "font-serif",
               font === "mono" && "font-mono",
-              option === "shortBrake" &&
-                color === "red" &&
-                "bg-[#F87070] text-[#1E213F]",
+              option === "shortBrake" && color === "red" && "bg-commonColor4",
               option === "shortBrake" &&
                 color === "lightblue" &&
-                "bg-[#70F3F8] text-[#1E213F]",
+                "bg-commonColor5",
               option === "shortBrake" &&
                 color === "purple" &&
-                "bg-[#D881F8] text-[#1E213F]",
-              "text-[0.8rem] leading-[0.9rem] font-[700] text-[#D7E0FF] p-[1.2rem] rounded-full"
+                "bg-commonColor6",
+              option === "shortBrake"
+                ? "text-commonColor3"
+                : "text-commonColor7 opacity-[40%] hover:opacity-100",
+              "md:text-[0.9rem] md:py-[1.3rem] md:px-[1.5rem] text-[0.8rem] leading-[0.9rem] font-[700]  p-[1.2rem] rounded-full transition-all duration-100"
             )}
           >
             short break
@@ -80,16 +80,15 @@ function MainPage(props: {
               font === "sans" && "font-sans",
               font === "serif" && "font-serif",
               font === "mono" && "font-mono",
-              option === "longBrake" &&
-                color === "red" &&
-                "bg-[#F87070] text-[#1E213F]",
+              option === "longBrake" && color === "red" && "bg-commonColor4",
               option === "longBrake" &&
                 color === "lightblue" &&
-                "bg-[#70F3F8] text-[#1E213F]",
-              option === "longBrake" &&
-                color === "purple" &&
-                "bg-[#D881F8] text-[#1E213F]",
-              "text-[0.8rem] leading-[0.9rem] font-[700] text-[#D7E0FF] p-[1.2rem] rounded-full"
+                "bg-commonColor5",
+              option === "longBrake" && color === "purple" && "bg-commonColor6",
+              option === "longBrake"
+                ? "text-commonColor3"
+                : "text-commonColor7 opacity-[40%] hover:opacity-100",
+              "md:text-[0.9rem] md:py-[1.3rem] md:px-[1.5rem] text-[0.8rem] leading-[0.9rem] font-[700] p-[1.2rem] rounded-full transition-all duration-100"
             )}
           >
             long break
@@ -117,6 +116,8 @@ function MainPage(props: {
         setShortBrake={setShortBrake}
         longBrake={longBrake}
         setLongBrake={setLongBrake}
+        apply={apply}
+        setApply={setApply}
       />
     </div>
   );

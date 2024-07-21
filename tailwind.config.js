@@ -163,14 +163,14 @@ export default {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      commonColor: "#FDA214",
-      commonColor2: "#F2F2F2",
-      commonColor3: "#7191A5",
-      commonColor4: "#DFE7EC",
-      commonColor5: "#FCFCFC",
-      commonColor6: "#6395B8",
-      commonColor7: "#BCCED9",
-      commonColor8: "#304859",
+      commonColor: "#161932",
+      commonColor2: "#EFF1FA",
+      commonColor3: "#1E213F",
+      commonColor4: "#F87070",
+      commonColor5: "#70F3F8",
+      commonColor6: "#D881F8",
+      commonColor7: "#D7E0FF",
+      commonColor8: "#dfe1eb",
     }),
     columns: {
       auto: "auto",
@@ -1060,7 +1060,14 @@ export default {
       40: "40",
       50: "50",
     },
-    extend: {},
+    extend: {
+      dropShadow: {
+        "custom-shadow": [
+          "50px 50px 50px #121530",
+          "-50px -50px 50px #272C5A",
+        ],
+      },
+    },
   },
   plugins: [],
 };

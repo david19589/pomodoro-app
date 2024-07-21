@@ -1,11 +1,10 @@
 import Settings from "/src/assets/icon-settings.svg";
 import Close from "/src/assets/icon-close.svg";
-import ArrowUp from "/src/assets/icon-arrow-up.svg";
-import ArrowDown from "/src/assets/icon-arrow-down.svg";
 import clsx from "clsx";
 import ChangeFont from "../change-font";
 import ChangeColor from "../change-color";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import ChangeTime from "../change-time";
 
 function Menu(props: {
   openSettings: boolean;
@@ -20,7 +19,25 @@ function Menu(props: {
   setShortBrake: Dispatch<SetStateAction<number>>;
   longBrake: number;
   setLongBrake: Dispatch<SetStateAction<number>>;
+  apply: boolean;
+  setApply: (status: boolean) => void;
 }) {
+  const [tempPomodoro, setTempPomodoro] = useState(props.pomodoro);
+  const [tempShortBrake, setTempShortBrake] = useState(props.shortBrake);
+  const [tempLongBrake, setTempLongBrake] = useState(props.longBrake);
+  const [tempFont, setTempFont] = useState(props.font);
+  const [tempColor, setTempColor] = useState(props.color);
+
+  const handleApply = () => {
+    props.setPomodoro(tempPomodoro);
+    props.setShortBrake(tempShortBrake);
+    props.setLongBrake(tempLongBrake);
+    props.setFont(tempFont);
+    props.setColor(tempColor);
+    props.setApply(true);
+    props.setOpenSettings(false);
+  };
+
   return (
     <div>
       <button
@@ -32,14 +49,14 @@ function Menu(props: {
       </button>
       {props.openSettings && (
         <div className="flex items-center justify-center fixed top-0 bottom-0 left-0 right-0 bg-[#0000006e] z-20">
-          <div className="bg-[#FFF] max-w-[21rem] w-full rounded-xl">
+          <div className="md:max-w-[34rem] bg-[#FFF] max-w-[21rem] w-full rounded-3xl pb-[1.5rem] relative">
             <div className="flex justify-between items-center p-[1.5rem]">
               <h1
                 className={clsx(
-                  props.font === "sans" && "font-sans",
-                  props.font === "serif" && "font-serif",
-                  props.font === "mono" && "font-mono",
-                  "text-[1.25rem] leading-[1.5rem] font-[700] text-[#161932]"
+                  tempFont === "sans" && "font-sans",
+                  tempFont === "serif" && "font-serif",
+                  tempFont === "mono" && "font-mono",
+                  "md:text-[1.8rem] md:leading-[2rem] text-[1.25rem] leading-[1.5rem] font-[700] text-commonColor"
                 )}
               >
                 Settings
@@ -55,166 +72,41 @@ function Menu(props: {
               </button>
             </div>
             <span className="flex bg-[#E3E1E1] h-[0.1rem] w-full"></span>
-            <div className="flex flex-col items-center p-[1.5rem]">
-              <h2
+            <ChangeTime
+              font={tempFont}
+              pomodoro={tempPomodoro}
+              setPomodoro={setTempPomodoro}
+              shortBrake={tempShortBrake}
+              setShortBrake={setTempShortBrake}
+              longBrake={tempLongBrake}
+              setLongBrake={setTempLongBrake}
+            />
+            <div className="md:px-[2.5rem] px-[1.5rem]">
+              <span className="flex bg-[#E3E1E1] h-[0.1rem] w-full"></span>
+              <ChangeFont font={tempFont} setFont={setTempFont} />
+              <span className="flex bg-[#E3E1E1] h-[0.1rem] w-full"></span>
+              <ChangeColor
+                color={tempColor}
+                setColor={setTempColor}
+                font={tempFont}
+              />
+            </div>
+            <div className="flex justify-center w-full px-[1.5rem]">
+              <button
+                onClick={handleApply}
                 className={clsx(
-                  props.font === "sans" && "font-sans",
-                  props.font === "serif" && "font-serif",
-                  props.font === "mono" && "font-mono",
-                  "text-[0.7rem] leading-[0.9rem] tracking-[0.3rem] font-[700] text-[#161932] mb-[1.15rem]"
+                  tempFont === "sans" && "font-sans",
+                  tempFont === "serif" && "font-serif",
+                  tempFont === "mono" && "font-mono",
+                  tempColor === "red" && "bg-[#F87070]",
+                  tempColor === "lightblue" && "bg-[#70F3F8]",
+                  tempColor === "purple" && "bg-[#D881F8]",
+                  "text-[1rem] leading-[1.3rem] font-[700] text-[#FFF] max-w-[9rem] w-full py-[1.2rem] absolute rounded-full"
                 )}
               >
-                TIME (MINUTES)
-              </h2>
-              <div className="w-full">
-                <div className="flex items-center justify-between mb-[0.5rem]">
-                  <h3
-                    className={clsx(
-                      props.font === "sans" && "font-sans",
-                      props.font === "serif" && "font-serif",
-                      props.font === "mono" && "font-mono",
-                      "text-[0.75rem] leading-[0.9rem] font-[700] text-[#1E213F] opacity-[40%]"
-                    )}
-                  >
-                    pomodoro
-                  </h3>
-                  <div className="flex items-center justify-between p-[1rem] bg-[#EFF1FA] rounded-lg max-w-[9rem] w-full">
-                    <span
-                      className={clsx(
-                        props.font === "sans" && "font-sans",
-                        props.font === "serif" && "font-serif",
-                        props.font === "mono" && "font-mono",
-                        "text-[0.9rem] leading-[1rem] font-[700] text-[#1E213F]"
-                      )}
-                    >
-                      {props.pomodoro}
-                    </span>
-                    <div className="flex flex-col gap-[0.5rem]">
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setPomodoro((prev) => Math.min(prev + 1, 60));
-                          }}
-                          src={ArrowUp}
-                          alt="ArrowUp"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setPomodoro((prev) => Math.max(prev - 1, 1));
-                          }}
-                          src={ArrowDown}
-                          alt="ArrowDown"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mb-[0.5rem]">
-                  <h3
-                    className={clsx(
-                      props.font === "sans" && "font-sans",
-                      props.font === "serif" && "font-serif",
-                      props.font === "mono" && "font-mono",
-                      "text-[0.75rem] leading-[0.9rem] font-[700] text-[#1E213F] opacity-[40%]"
-                    )}
-                  >
-                    short break
-                  </h3>
-                  <div className="flex items-center justify-between p-[1rem] bg-[#EFF1FA] rounded-lg max-w-[9rem] w-full">
-                    <span
-                      className={clsx(
-                        props.font === "sans" && "font-sans",
-                        props.font === "serif" && "font-serif",
-                        props.font === "mono" && "font-mono",
-                        "text-[0.9rem] leading-[1rem] font-[700] text-[#1E213F]"
-                      )}
-                    >
-                      {props.shortBrake}
-                    </span>
-                    <div className="flex flex-col gap-[0.5rem]">
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setShortBrake((prev) =>
-                              Math.min(prev + 1, 60)
-                            );
-                          }}
-                          src={ArrowUp}
-                          alt="ArrowUp"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setShortBrake((prev) =>
-                              Math.max(prev - 1, 1)
-                            );
-                          }}
-                          src={ArrowDown}
-                          alt="ArrowDown"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <h3
-                    className={clsx(
-                      props.font === "sans" && "font-sans",
-                      props.font === "serif" && "font-serif",
-                      props.font === "mono" && "font-mono",
-                      "text-[0.75rem] leading-[0.9rem] font-[700] text-[#1E213F] opacity-[40%]"
-                    )}
-                  >
-                    long break
-                  </h3>
-                  <div className="flex items-center justify-between p-[1rem] bg-[#EFF1FA] rounded-lg max-w-[9rem] w-full">
-                    <span
-                      className={clsx(
-                        props.font === "sans" && "font-sans",
-                        props.font === "serif" && "font-serif",
-                        props.font === "mono" && "font-mono",
-                        "text-[0.9rem] leading-[1rem] font-[700] text-[#1E213F]"
-                      )}
-                    >
-                      {props.longBrake}
-                    </span>
-                    <div className="flex flex-col gap-[0.5rem]">
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setLongBrake((prev) =>
-                              Math.min(prev + 1, 60)
-                            );
-                          }}
-                          src={ArrowUp}
-                          alt="ArrowUp"
-                        />
-                      </button>
-                      <button>
-                        <img
-                          onClick={() => {
-                            props.setLongBrake((prev) => Math.max(prev - 1, 1));
-                          }}
-                          src={ArrowDown}
-                          alt="ArrowDown"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                Apply
+              </button>
             </div>
-            <span className="flex bg-[#E3E1E1] h-[0.1rem] w-full"></span>
-            <ChangeFont font={props.font} setFont={props.setFont} />
-            <span className="flex bg-[#E3E1E1] h-[0.1rem] w-full"></span>
-            <ChangeColor
-              color={props.color}
-              setColor={props.setColor}
-              font={props.font}
-            />
           </div>
         </div>
       )}

@@ -5,13 +5,13 @@ function ChangeFont(props: {
   setFont: (status: string) => void;
 }) {
   return (
-    <div className="flex flex-col items-center p-[1.5rem]">
+    <div className="md:flex-row md:justify-between flex flex-col items-center py-[1.5rem]">
       <h2
         className={clsx(
           props.font === "sans" && "font-sans",
           props.font === "serif" && "font-serif",
           props.font === "mono" && "font-mono",
-          "text-[0.7rem] leading-[0.9rem] tracking-[0.3rem] font-[700] text-[#161932] mb-[1.15rem]"
+          "md:mb-0 text-[0.7rem] leading-[0.9rem] tracking-[0.3rem] font-[700] text-commonColor mb-[1.15rem]"
         )}
       >
         FONT
@@ -23,8 +23,8 @@ function ChangeFont(props: {
           }}
           className={clsx(
             props.font === "sans"
-              ? "bg-[#161932] text-[#FFF]"
-              : "bg-[#EFF1FA] text-[#1E213F]",
+              ? "bg-commonColor text-[#FFF]"
+              : "bg-commonColor2 text-commonColor3 hover:bg-commonColor8",
             "text-[0.95rem] leading-[1.15rem] font-sans fort-[700] w-[2.5rem] h-[2.5rem] rounded-full transition-all duration-300"
           )}
         >
@@ -36,8 +36,8 @@ function ChangeFont(props: {
           }}
           className={clsx(
             props.font === "serif"
-              ? "bg-[#161932] text-[#FFF]"
-              : "bg-[#EFF1FA] text-[#1E213F]",
+              ? "bg-commonColor text-[#FFF]"
+              : "bg-commonColor2 text-commonColor3 hover:bg-commonColor8",
             "text-[0.95rem] leading-[1.15rem] font-serif fort-[700] w-[2.5rem] h-[2.5rem] rounded-full transition-all duration-300"
           )}
         >
@@ -49,8 +49,8 @@ function ChangeFont(props: {
           }}
           className={clsx(
             props.font === "mono"
-              ? "bg-[#161932] text-[#FFF]"
-              : "bg-[#EFF1FA] text-[#1E213F]",
+              ? "bg-commonColor text-[#FFF]"
+              : "bg-commonColor2 text-commonColor3 hover:bg-commonColor8",
             "text-[0.95rem] leading-[1.15rem] font-mono fort-[700] w-[2.5rem] h-[2.5rem] rounded-full transition-all duration-300"
           )}
         >

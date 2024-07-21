@@ -7,13 +7,13 @@ function ChangeColor(props: {
   font: string;
 }) {
   return (
-    <div className="flex flex-col items-center p-[1.5rem]">
+    <div className="md:flex-row md:justify-between flex flex-col items-center py-[1.5rem]">
       <h2
         className={clsx(
           props.font === "sans" && "font-sans",
           props.font === "serif" && "font-serif",
           props.font === "mono" && "font-mono",
-          "text-[0.7rem] leading-[0.9rem] tracking-[0.3rem] font-[700] text-[#161932] mb-[1.15rem]"
+          "md:mb-0 text-[0.7rem] leading-[0.9rem] tracking-[0.3rem] font-[700] text-commonColor mb-[1.15rem]"
         )}
       >
         Color
@@ -24,7 +24,8 @@ function ChangeColor(props: {
             props.setColor("red");
           }}
           className={clsx(
-            "w-[2.5rem] h-[2.5rem] rounded-full bg-[#F87070] flex items-center justify-center"
+            props.color !== "red" && "hover:bg-[#f87070d8]",
+            "w-[2.5rem] h-[2.5rem] rounded-full bg-commonColor4 flex items-center justify-center transition-all duration-300"
           )}
         >
           <img
@@ -38,7 +39,8 @@ function ChangeColor(props: {
             props.setColor("lightblue");
           }}
           className={clsx(
-            "w-[2.5rem] h-[2.5rem] rounded-full bg-[#70F3F8] flex items-center justify-center"
+            props.color !== "lightblue" && "hover:bg-[#70f4f8c5]",
+            "w-[2.5rem] h-[2.5rem] rounded-full bg-commonColor5 flex items-center justify-center transition-all duration-300"
           )}
         >
           <img
@@ -52,7 +54,8 @@ function ChangeColor(props: {
             props.setColor("purple");
           }}
           className={clsx(
-            "w-[2.5rem] h-[2.5rem] rounded-full bg-[#D881F8] flex items-center justify-center"
+            props.color !== "purple" && "hover:bg-[#d881f8c4]",
+            "w-[2.5rem] h-[2.5rem] rounded-full bg-commonColor6 flex items-center justify-center transition-all duration-300"
           )}
         >
           <img
