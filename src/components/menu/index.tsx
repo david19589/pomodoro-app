@@ -1,53 +1,55 @@
 import Settings from "/src/assets/icon-settings.svg";
 import Close from "/src/assets/icon-close.svg";
 import clsx from "clsx";
-import ChangeFont from "../change-font";
-import ChangeColor from "../change-color";
-import { Dispatch, SetStateAction, useState } from "react";
-import ChangeTime from "../change-time";
+import ChangeFont from "./components/change-font";
+import ChangeColor from "./components/change-color";
+import { useState } from "react";
+import ChangeTime from "./components/change-time";
+import { useStateStore } from "../../utils/store";
 
-function Menu(props: {
-  openSettings: boolean;
-  setOpenSettings: (status: boolean) => void;
-  font: string;
-  setFont: (status: string) => void;
-  color: string;
-  setColor: (status: string) => void;
-  pomodoro: number;
-  setPomodoro: Dispatch<SetStateAction<number>>;
-  shortBrake: number;
-  setShortBrake: Dispatch<SetStateAction<number>>;
-  longBrake: number;
-  setLongBrake: Dispatch<SetStateAction<number>>;
-  apply: boolean;
-  setApply: (status: boolean) => void;
-}) {
-  const [tempPomodoro, setTempPomodoro] = useState(props.pomodoro);
-  const [tempShortBrake, setTempShortBrake] = useState(props.shortBrake);
-  const [tempLongBrake, setTempLongBrake] = useState(props.longBrake);
-  const [tempFont, setTempFont] = useState(props.font);
-  const [tempColor, setTempColor] = useState(props.color);
+function Menu() {
+  const {
+    openSettings,
+    setOpenSettings,
+    font,
+    setFont,
+    color,
+    setColor,
+    pomodoro,
+    setPomodoro,
+    shortBrake,
+    setShortBrake,
+    longBrake,
+    setLongBrake,
+    setApply,
+  } = useStateStore();
+
+  const [tempPomodoro, setTempPomodoro] = useState(pomodoro);
+  const [tempShortBrake, setTempShortBrake] = useState(shortBrake);
+  const [tempLongBrake, setTempLongBrake] = useState(longBrake);
+  const [tempFont, setTempFont] = useState(font);
+  const [tempColor, setTempColor] = useState(color);
 
   const handleApply = () => {
-    props.setPomodoro(tempPomodoro);
-    props.setShortBrake(tempShortBrake);
-    props.setLongBrake(tempLongBrake);
-    props.setFont(tempFont);
-    props.setColor(tempColor);
-    props.setApply(true);
-    props.setOpenSettings(false);
+    setPomodoro(tempPomodoro);
+    setShortBrake(tempShortBrake);
+    setLongBrake(tempLongBrake);
+    setFont(tempFont);
+    setColor(tempColor);
+    setApply(true);
+    setOpenSettings(false);
   };
 
   return (
     <div>
       <button
         onClick={() => {
-          props.setOpenSettings(true);
+          setOpenSettings(true);
         }}
       >
         <img src={Settings} alt="Settings" />
       </button>
-      {props.openSettings && (
+      {openSettings && (
         <div className="flex items-center justify-center fixed top-0 bottom-0 left-0 right-0 bg-[#0000006e] z-20">
           <div className="md:max-w-[34rem] bg-[#FFF] max-w-[21rem] w-full rounded-3xl pb-[1.5rem] relative">
             <div className="flex justify-between items-center p-[1.5rem]">
@@ -64,7 +66,7 @@ function Menu(props: {
               <button>
                 <img
                   onClick={() => {
-                    props.setOpenSettings(false);
+                    setOpenSettings(false);
                   }}
                   src={Close}
                   alt="Close"

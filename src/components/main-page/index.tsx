@@ -1,20 +1,11 @@
 import Logo from "/src/assets/logo.svg";
 import CountDownTimer from "../countdown-timer";
 import Menu from "../menu";
-import { useState } from "react";
 import clsx from "clsx";
+import { useStateStore } from "../../utils/store";
 
-function MainPage(props: {
-  openSettings: boolean;
-  setOpenSettings: (status: boolean) => void;
-}) {
-  const [font, setFont] = useState("sans");
-  const [color, setColor] = useState("red");
-  const [option, setOption] = useState("pomodoro");
-  const [pomodoro, setPomodoro] = useState(25);
-  const [shortBrake, setShortBrake] = useState(5);
-  const [longBrake, setLongBrake] = useState(15);
-  const [apply, setApply] = useState(false);
+function MainPage() {
+  const { font, color, option, setOption } = useStateStore();
 
   return (
     <div className="pt-[2rem] pb-[3rem] flex flex-col items-center">
@@ -95,30 +86,8 @@ function MainPage(props: {
           </h2>
         </button>
       </div>
-      <CountDownTimer
-        font={font}
-        color={color}
-        option={option}
-        pomodoro={pomodoro}
-        shortBrake={shortBrake}
-        longBrake={longBrake}
-      />
-      <Menu
-        openSettings={props.openSettings}
-        setOpenSettings={props.setOpenSettings}
-        font={font}
-        setFont={setFont}
-        color={color}
-        setColor={setColor}
-        pomodoro={pomodoro}
-        setPomodoro={setPomodoro}
-        shortBrake={shortBrake}
-        setShortBrake={setShortBrake}
-        longBrake={longBrake}
-        setLongBrake={setLongBrake}
-        apply={apply}
-        setApply={setApply}
-      />
+      <CountDownTimer />
+      <Menu />
     </div>
   );
 }
